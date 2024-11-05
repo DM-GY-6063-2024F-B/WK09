@@ -1,17 +1,16 @@
-// TODO: noise fill
-
-let gridDim = 16;
+let xyz;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
-  for (let x = 0; x < width; x += gridDim) {
-    for (let y = 0; y < height; y += gridDim) {
-      let mc = 255;
-      fill(mc);
-      rect(x, y, gridDim);
-    }
-  }
+  background(255, 20, 120);
+  xyz = { x: width / 2, y: height / 2, z: 80 };
 }
 
-function draw() {}
+function draw() {
+  xyz = {
+    x: width * noise(frameCount / 200),
+    y: height * noise(frameCount / 200 + 1000),
+    z: 80 * noise(frameCount / 100 + 20202) + 10,
+  };
+  ellipse(xyz.x, xyz.y, xyz.z);
+}

@@ -1,5 +1,3 @@
-// TODO: different distributions
-
 let xy;
 
 function setup() {
@@ -9,9 +7,9 @@ function setup() {
 }
 
 function draw() {
-  ellipse(xy.x, xy.y, 50);
   xy = {
-    x: random(width),
-    y: random(height)
+    x: randomGaussian(width / 2, width / 12),
+    y: randomGaussian(height / 2, height / 12),
   };
+  ellipse(xy.x, xy.y, 50);
 }

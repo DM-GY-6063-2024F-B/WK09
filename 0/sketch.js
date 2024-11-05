@@ -1,33 +1,37 @@
 let ids = [];
 
 let cId = -1;
-let debounceDelay = 800;
-let xy;
+let debounceDelay = 500;
 let lastClicked;
 
 function preload() {
-  ids = loadStrings("../assets/ids.txt");
+  ids = loadStrings("../assets/ids.example.txt");
+}
+
+function shuffleArray(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i; j < arr.length; j++) {
+      let rj = floor(random(j, arr.length));
+      let t = arr[i];
+      arr[i] = arr[rj];
+      arr[rj] = t;
+    }
+  }
+  return arr;
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(255, 20, 120);
-  randomSeed(1010);
+  randomSeed(1234);
   textAlign(CENTER, CENTER);
   textSize(32);
   noLoop();
 
-  xy = { x: width / 2, y: height / 2 };
   lastClicked = 0;
 
-  for (let i = 0; i < ids.length; i++) {
-    for (let j = i; j < ids.length; j++) {
-      let rj = floor(random(j, ids.length));
-      let t = ids[i];
-      ids[i] = ids[rj];
-      ids[rj] = t;
-    }
-  }
+  ids = shuffleArray(ids);
+  print(ids);
 }
 
 function draw() {
@@ -35,10 +39,9 @@ function draw() {
     cId = (cId + 1) % ids.length;
 
     background(255, 20, 120);
-    text(ids[cId], xy.x, xy.y);
+    text(ids[cId], width / 2, height / 2);
 
     lastClicked = millis();
-    xy = { x: width / 2, y: height / 2 };
   }
 }
 
